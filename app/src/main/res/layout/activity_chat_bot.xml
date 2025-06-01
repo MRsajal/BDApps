@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D2F6B0"
+    tools:context=".ChatBot">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        app:title="Chatbot"
+        android:id="@+id/toolbar"
+        android:background="@color/top_nov"
+        app:titleTextColor="@color/white"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/chatRecyclerView"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@+id/inputLayout"
+        android:padding="8dp"
+        android:background="#FAFAFA"
+        android:clipToPadding="false"
+        />
+    <LinearLayout
+        android:id="@+id/inputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="@android:color/white"
+        android:elevation="8dp">
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/messageEditText"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:hint="Type your message...."
+            android:textColor="@color/black"
+            android:padding="12dp"
+            android:maxLines="4"
+            android:inputType="textMultiLine|textCapSentences"
+            />
+
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/sendButton"
+            android:src="@drawable/baseline_send_24"
+            android:contentDescription="Send message"
+            android:background="@color/btn_color"
+            android:layout_gravity="bottom"/>
+    </LinearLayout>
+
+</RelativeLayout>
