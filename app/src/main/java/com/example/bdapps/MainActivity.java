@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         menuLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Logout selected", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this,Login.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
             }
         });
