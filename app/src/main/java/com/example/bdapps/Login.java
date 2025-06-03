@@ -60,7 +60,9 @@ public class Login extends AppCompatActivity {
 
         if(databaseHelperLogin.checkUser(username,password)){
             Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(Login.this, MainActivity.class));
+            Intent intent=new Intent(Login.this, MainActivity.class);
+            intent.putExtra("current_username",username);
+            startActivity(intent);
             finish();
         }
         else{

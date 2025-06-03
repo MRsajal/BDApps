@@ -10,9 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class Registration extends AppCompatActivity {
 
-    EditText etUsername,etName,etInstitution,etSeries,etPassword,etConfirmPassword;
+    EditText etUsername,etName,etPassword,etConfirmPassword,etEmail;
     Button btnRegister,btnGoToLogin;
     DatabaseHelper_login databaseHelperLogin;
 
@@ -23,8 +27,7 @@ public class Registration extends AppCompatActivity {
 
         etUsername=findViewById(R.id.et_username);
         etName=findViewById(R.id.et_name);
-        etInstitution=findViewById(R.id.et_institution);
-        etSeries=findViewById(R.id.et_series);
+       etEmail=findViewById(R.id.et_email);
         etPassword=findViewById(R.id.et_password);
         etConfirmPassword=findViewById(R.id.et_confirm_password);
         btnRegister=findViewById(R.id.btn_register);
@@ -50,8 +53,7 @@ public class Registration extends AppCompatActivity {
     private void registerUser() {
         String username=etUsername.getText().toString().trim();
         String name=etName.getText().toString().trim();
-        String institution=etInstitution.getText().toString().trim();
-        String series=etSeries.getText().toString().trim();
+        String email=etEmail.getText().toString().trim();
         String password=etPassword.getText().toString().trim();
         String confirmPassword=etConfirmPassword.getText().toString().trim();
 
@@ -65,15 +67,9 @@ public class Registration extends AppCompatActivity {
             etName.requestFocus();
             return;
         }
-        if (TextUtils.isEmpty(institution)) {
-            etInstitution.setError("Institution is required");
-            etInstitution.requestFocus();
-            return;
-        }
-
-        if (TextUtils.isEmpty(series)) {
-            etSeries.setError("Series is required");
-            etSeries.requestFocus();
+        if (TextUtils.isEmpty(email)) {
+            etEmail.setError("Email is required");
+            etEmail.requestFocus();
             return;
         }
 
@@ -106,7 +102,7 @@ public class Registration extends AppCompatActivity {
             etUsername.requestFocus();
             return;
         }
-        if(databaseHelperLogin.addUser(username,name,institution,series,password)){
+        if(databaseHelperLogin.addUser(username,name,email,password)){
             Toast.makeText(this, "Registration Successful!", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(Registration.this, Login.class));
             finish();

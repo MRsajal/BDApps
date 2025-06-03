@@ -28,6 +28,7 @@
             android:hint="Username"
             android:inputType="text"
             android:padding="12dp"
+            android:textColor="@color/black"
             android:id="@+id/et_username"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -42,6 +43,7 @@
             android:hint="Password"
             android:inputType="textPassword"
             android:padding="12dp"
+            android:textColor="@color/black"
             android:id="@+id/et_password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
