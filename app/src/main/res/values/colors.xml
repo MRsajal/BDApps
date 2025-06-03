@@ -5,4 +5,7 @@
     <color name="background_color">#EBFFD8</color>
     <color name="top_nov">#8DBCC7</color>
     <color name="btn_color">#B0DB9C</color>
+    <color name="tab_color">#645491</color>
+    <color name="grey">#808080</color>
+    <color name="primary">#645491</color>
 </resources>
