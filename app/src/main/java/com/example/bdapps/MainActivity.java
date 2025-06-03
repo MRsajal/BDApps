@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     PostAdapter postAdapter;
     List<Post> postList;
+    String currentUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         menuProfile=findViewById(R.id.menu_profile);
         menuPost=findViewById(R.id.menu_post);
         menuLogout=findViewById(R.id.menu_logout);
+        currentUsername= getIntent().getStringExtra("current_username");
     }
 
     private void setupRecyclerView(){
@@ -103,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Post selected", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(MainActivity.this, CreateGroup.class);
+                intent.putExtra("current_username",currentUsername);
+                startActivity(intent);
                 drawerLayout.closeDrawer(GravityCompat.START);
             }
         });
