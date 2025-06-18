@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Profile selected", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this,ProfileView.class));
+                startActivity(new Intent(MainActivity.this,ProfilePage.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
             }
         });

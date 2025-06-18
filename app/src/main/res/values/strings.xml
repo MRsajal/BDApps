@@ -2,4 +2,8 @@
     <string name="app_name">BDApps</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Info_about_Bio">💻 Android Developer | 🎵 Music Lover\n\n
+        🚴 Cycling Enthusiast | 🌱 Gardening Fan\n\n
+        🤝 Volunteer | 🌍 Lifelong Learner
+ </string>
 </resources>

@@ -2,10 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background_white">#f8f9fa</color>
+    <color name="background_color_light">#f8f9fa</color>
+    <color name="background_color_dark">#000000</color>
     <color name="background_color">#EBFFD8</color>
+    <color name="background_color2">#D6F6FA</color>
     <color name="top_nov">#8DBCC7</color>
     <color name="btn_color">#B0DB9C</color>
     <color name="tab_color">#645491</color>
     <color name="grey">#808080</color>
     <color name="primary">#645491</color>
+
 </resources>

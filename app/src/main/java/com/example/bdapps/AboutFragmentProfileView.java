@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 
 public class AboutFragmentProfileView extends Fragment {
+    public AboutFragmentProfileView() {
+        // Required empty public constructor
+    }
 
     @Nullable
     @Override
@@ -24,6 +27,8 @@ public class AboutFragmentProfileView extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_about_profile_view, container, false);
+        int position = getArguments() != null ? getArguments().getInt("position") : -1;
+        view.setTag("f" + position);
 
         return view;
     }
