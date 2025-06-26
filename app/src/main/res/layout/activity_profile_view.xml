@@ -47,6 +47,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/constraintLayout"
                         android:layout_width="wrap_content"
@@ -59,6 +60,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
                         <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/profile_image"
                             android:layout_width="150dp"
                             android:layout_height="0dp"
                             android:layout_gravity="center"
@@ -66,6 +68,9 @@
                             android:clipToOutline="true"
                             android:scaleType="centerCrop"
                             android:src="@drawable/avatar"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:background="?android:attr/selectableItemBackgroundBorderless"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintDimensionRatio="1:1"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +80,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/tv_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -93,7 +98,7 @@
                         android:text="CSE student "
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@+id/constraintLayout"
-                        app:layout_constraintTop_toBottomOf="@+id/textView" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
 
                     <LinearLayout

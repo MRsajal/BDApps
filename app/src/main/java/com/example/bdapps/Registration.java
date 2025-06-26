@@ -10,10 +10,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 public class Registration extends AppCompatActivity {
 
-    EditText etUsername,etName,etInstitution,etSeries,etPassword,etConfirmPassword;
-    Button btnRegister,btnGoToLogin;
+    EditText etUsername, etName, etPassword, etConfirmPassword, etEmail;
+    Button btnRegister, btnGoToLogin;
     DatabaseHelper_login databaseHelperLogin;
 
     @Override
@@ -21,16 +30,15 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        etUsername=findViewById(R.id.et_username);
-        etName=findViewById(R.id.et_name);
-        etInstitution=findViewById(R.id.et_institution);
-        etSeries=findViewById(R.id.et_series);
-        etPassword=findViewById(R.id.et_password);
-        etConfirmPassword=findViewById(R.id.et_confirm_password);
-        btnRegister=findViewById(R.id.btn_register);
-        btnGoToLogin=findViewById(R.id.btn_go_to_login);
+        etUsername = findViewById(R.id.et_username);
+        etName = findViewById(R.id.et_name);
+        etEmail = findViewById(R.id.et_email);
+        etPassword = findViewById(R.id.et_password);
+        etConfirmPassword = findViewById(R.id.et_confirm_password);
+        btnRegister = findViewById(R.id.btn_register);
+        btnGoToLogin = findViewById(R.id.btn_go_to_login);
 
-        databaseHelperLogin=new DatabaseHelper_login(this);
+        databaseHelperLogin = new DatabaseHelper_login(this);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,32 +56,25 @@ public class Registration extends AppCompatActivity {
     }
 
     private void registerUser() {
-        String username=etUsername.getText().toString().trim();
-        String name=etName.getText().toString().trim();
-        String institution=etInstitution.getText().toString().trim();
-        String series=etSeries.getText().toString().trim();
-        String password=etPassword.getText().toString().trim();
-        String confirmPassword=etConfirmPassword.getText().toString().trim();
+        String username = etUsername.getText().toString().trim();
+        String name = etName.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+        String confirmPassword = etConfirmPassword.getText().toString().trim();
 
-        if(TextUtils.isEmpty(username)){
+        if (TextUtils.isEmpty(username)) {
             etUsername.setError("Username is required");
             etUsername.requestFocus();
             return;
         }
-        if(TextUtils.isEmpty(name)){
+        if (TextUtils.isEmpty(name)) {
             etName.setError("Name is required");
             etName.requestFocus();
             return;
         }
-        if (TextUtils.isEmpty(institution)) {
-            etInstitution.setError("Institution is required");
-            etInstitution.requestFocus();
-            return;
-        }
-
-        if (TextUtils.isEmpty(series)) {
-            etSeries.setError("Series is required");
-            etSeries.requestFocus();
+        if (TextUtils.isEmpty(email)) {
+            etEmail.setError("Email is required");
+            etEmail.requestFocus();
             return;
         }
 
@@ -95,23 +96,52 @@ public class Registration extends AppCompatActivity {
             return;
         }
 
-        if(!password.equals(confirmPassword)){
+        if (!password.equals(confirmPassword)) {
             etConfirmPassword.setError("Passwords do not match");
             etConfirmPassword.requestFocus();
             return;
         }
 
-        if(databaseHelperLogin.checkUsername(username)){
-            etUsername.setError("Username already exists");
-            etUsername.requestFocus();
+        //API URL
+        String url = "https://dormitorybackend.duckdns.org/api/auth/register";
+
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("username",username);
+            jsonBody.put("name",name);
+            jsonBody.put("email",email);
+            jsonBody.put("password",password);
+        }catch (JSONException e){
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to create JSON", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(databaseHelperLogin.addUser(username,name,institution,series,password)){
-            Toast.makeText(this, "Registration Successful!", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(Registration.this, Login.class));
-            finish();
-        }else{
-            Toast.makeText(this, "Registration failed. Please try again", Toast.LENGTH_SHORT).show();
-        }
+
+        //Send request
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                jsonBody,
+                response -> {
+                    Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Registration.this, Login.class));
+                    finish();
+                },
+                error -> {
+                    if (error.networkResponse != null && error.networkResponse.statusCode == 400) {
+                        Toast.makeText(this, "Validation error: Please check your input", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this, "Registration failed: " + error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }
+        ){
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+        };
+        // Add request to queue
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(jsonObjectRequest);
     }
 }

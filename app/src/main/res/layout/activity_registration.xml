@@ -53,26 +53,13 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/et_institution"
-            android:hint="Institution"
-            android:inputType="text"
+            android:id="@+id/et_email"
+            android:hint="email"
+            android:inputType="textEmailAddress"
             android:padding="12dp"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/et_series"
-            android:hint="Series"
-            android:inputType="text"
-            android:padding="12dp"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

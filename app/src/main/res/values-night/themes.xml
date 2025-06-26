@@ -4,10 +4,14 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+<<<<<<< HEAD
     <style name="Theme.BDApps" parent="Base.Theme.BDApps" >
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:colorBackground">@color/background_color_dark</item>
     </style>
+=======
+
+>>>>>>> 17646a0fa92da12b7b7cd92b2721df5315973431
     <style name="OvalShape" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>

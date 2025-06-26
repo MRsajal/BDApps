@@ -178,12 +178,40 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Post"
+                        android:text="Create Group"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         android:layout_marginStart="32dp"
                         />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:id="@+id/menu_group"
+                    android:orientation="horizontal"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:gravity="center_vertical"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    >
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/baseline_groups_24"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="My Groups"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_marginStart="32dp"
+                        />
+                </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/menu_logout"
                     android:layout_width="match_parent"
