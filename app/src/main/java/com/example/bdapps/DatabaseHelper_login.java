@@ -231,6 +231,7 @@ public class DatabaseHelper_login extends SQLiteOpenHelper {
         }
         }
 
+
     private void addGroupMember(SQLiteDatabase db, int groupId, int userId) {
         ContentValues memberValues=new ContentValues();
         memberValues.put(COLUMN_MEMBER_GROUP_ID,groupId);
@@ -303,6 +304,49 @@ public class DatabaseHelper_login extends SQLiteOpenHelper {
             db.endTransaction();
             db.close();
         }
+    }
+    public List<Group> getUserGroups(int userId){
+        List<Group> userGroups=new ArrayList<>();
+        SQLiteDatabase db=this.getReadableDatabase();
+        String query="SELECT g.* FROM "+TABLE_GROUPS+" g "+"INNER JOIN "
+                +TABLE_GROUP_MEMBERS + " gm ON g." + COLUMN_GROUP_ID + " = gm." + COLUMN_MEMBER_GROUP_ID + " " +
+                "WHERE gm." + COLUMN_MEMBER_USER_ID + " = ? " +
+                "ORDER BY g." + COLUMN_GROUP_NAME + " ASC";
+        Cursor cursor=db.rawQuery(query,new String[]{String.valueOf(userId)});
+
+        if(cursor.moveToFirst()){
+            do {
+                Group group=new Group(
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GROUP_NAME)),
+                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GROUP_DESCRIPTION)),
+                        String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_CREATED_BY)))
+                );
+                group.setGroupId(String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_GROUP_ID))));
+                group.setCreatedAt(cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_CREATED_AT)));
+                userGroups.add(group);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return userGroups;
+    }
+    public int getUserId(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USERS,
+                new String[]{COLUMN_ID},
+                COLUMN_USERNAME + "=?",
+                new String[]{username},
+                null, null, null);
+
+        int userId = -1; // Return -1 if user not found
+
+        if (cursor.moveToFirst()) {
+            userId = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID));
+        }
+
+        cursor.close();
+        db.close();
+        return userId;
     }
 
 }

@@ -2,7 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <application
         android:allowBackup="true"
@@ -15,11 +24,30 @@
         android:theme="@style/Theme.BDApps"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
+            android:name=".ChatDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChatHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CommentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserGroupsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_user_groups"
+            android:theme="@style/Theme.BDApps" />
+        <activity
             android:name=".CreateGroup"
-=======
+            android:exported="false" />
+        <activity
             android:name=".ProfileView"
->>>>>>> 2c4b1aac9bd12f2ec81b7faa96c5973a836eddea
             android:exported="false" />
         <activity
             android:name=".Registration"
