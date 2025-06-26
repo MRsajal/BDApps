@@ -4,9 +4,33 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+<<<<<<< HEAD
+    <style name="Theme.BDApps" parent="Base.Theme.BDApps" >
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:colorBackground">@color/background_color_dark</item>
+    </style>
+=======
 
+>>>>>>> 17646a0fa92da12b7b7cd92b2721df5315973431
     <style name="OvalShape" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+    <style name="BottomRoundedShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomLeft">20dp</item>
+        <item name="cornerSizeBottomRight">20dp</item>
+    </style>
+    <style name="OverlayViewStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">@drawable/gradient_background_dark</item>
+    </style>
+    <style name="CoverPhotoBackground">
+        <item name="background">@drawable/coverpagenightsky</item>
+        <item name="srcCompat">@drawable/coverpagenightsky</item>
+    </style>
+
 </resources>
