@@ -39,6 +39,284 @@
 
 
             </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Name"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <ImageButton
+                    android:id="@+id/btnEditName"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:padding="3dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/edit_icon"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Name Info"
+                    android:scaleType="centerInside"/>
+                <ImageButton
+                    android:id="@+id/btnEditNameSave"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_ok"
+                    android:visibility="gone"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Edit Info"
+                    android:scaleType="centerInside"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:alpha=".8"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:text="Shadikur Rahman Shadiq"/>
+            <!--<com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="Name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:maxLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>-->
+            <EditText
+                android:id="@+id/users_name_profile"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/edittext_background"
+                android:padding="12dp"
+                android:hint="Write about yourself"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:visibility="gone"
+                android:gravity="top|start"
+                android:inputType="textMultiLine"
+                android:scrollbars="vertical"
+                android:maxLength="500"
+                android:layout_marginBottom="20dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Bio"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <ImageButton
+                    android:id="@+id/btnEditBio"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:padding="3dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/edit_icon"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Name Info"
+                    android:scaleType="centerInside"/>
+                <ImageButton
+                    android:id="@+id/btnEditBioSave"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_ok"
+                    android:visibility="gone"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Edit Info"
+                    android:scaleType="centerInside"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvBio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:alpha=".8"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Cse Student at RUET"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="Write about yourself"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:lines="3"
+                    android:maxLines="5"
+                    android:maxLength="50"
+                    android:gravity="top|start"
+                    android:visibility="gone"
+                    android:scrollbars="vertical" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/user_bio_profile"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/edittext_background"
+                android:padding="12dp"
+                android:hint="Write about yourself"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:visibility="gone"
+                android:gravity="top|start"
+                android:inputType="textMultiLine"
+                android:scrollbars="vertical"
+                android:maxLength="500"
+                android:layout_marginBottom="20dp" />
+
+
+
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Location"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <ImageButton
+                        android:id="@+id/btnEditLocation"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:padding="3dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/edit_icon"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Name Info"
+                        android:scaleType="centerInside"/>
+                    <ImageButton
+                        android:id="@+id/btnEditLocationSave"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_ok"
+                        android:visibility="gone"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Edit Info"
+                        android:scaleType="centerInside"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:padding="2dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/locationIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@drawable/ic_location"/>
+                    <TextView
+                        android:id="@+id/tvEditLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha=".8"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:text="Motihar Thana,Rajshahi,"/>
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:hint="Write about yourself"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:lines="3"
+                        android:maxLines="5"
+                        android:maxLength="50"
+                        android:gravity="top|start"
+                        android:visibility="gone"
+                        android:scrollbars="vertical" />
+                </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/user_location_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@drawable/edittext_background"
+                    android:padding="12dp"
+                    android:hint="Write about yourself"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine"
+                    android:scrollbars="vertical"
+                    android:maxLength="500"
+                    android:layout_marginBottom="20dp" />
+
+            </LinearLayout>
+
 
             <!-- Info Section -->
             <LinearLayout
@@ -123,6 +401,7 @@
                     android:scrollbars="vertical"
                     android:maxLength="500"
                     android:layout_marginBottom="20dp" />
+
             </LinearLayout>
 
             <!-- Education Section -->

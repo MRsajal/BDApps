@@ -61,6 +61,9 @@ dependencies {
     // Glide for image loading
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
+    // in build.gradle (app)
+    implementation ("com.github.bumptech.glide:okhttp3-integration:4.15.1")
+
 
     // If you're using older Android versions, you might need:
     // implementation 'androidx.legacy:legacy-support-v4:1.0.0'

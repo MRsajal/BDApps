@@ -1,23 +1,36 @@
 package com.example.bdapps;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.example.bdapps.utils.ImageUtil;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -25,54 +38,43 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ProfilePage extends AppCompatActivity {
-    private static final String TAG = "ProfileView";
+    private static final String TAG = "ProfilePage";
     private static final String API_URL = "https://dormitorybackend.duckdns.org/api/auth/profile";
+    private static final int PERMISSION_REQUEST_CODE = 100;
 
-    // UI Components
     private ShapeableImageView profileImageView;
-    private TextView nameTextView;
-    private TextView bioTextView;
-    private TextView followersCountTextView;
-    private TextView followersLabelTextView;
+    private TextView nameTextView, bioTextView, followersCountTextView;
+    private ImageButton changeProfilePicBtn;
 
     private RequestQueue requestQueue;
-    private String accessToken;
-    private String username;
+    private String accessToken, username;
+
+    private ActivityResultLauncher<Intent> galleryLauncher, cameraLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
+
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager2 viewPager = findViewById(R.id.view_pager);
-
-        ProfileViewTabsAdapter adapter = new ProfileViewTabsAdapter(this);
-        viewPager.setAdapter(adapter);
-
+        viewPager.setAdapter(new ProfileViewTabsAdapter(this));
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            if (position == 0) {
-                tab.setText("About");
-            }
-            else if (position == 1) {
-                tab.setText("Posts");
-            } else{
-                tab.setText("Activity");
-            }
+            tab.setText(position == 0 ? "About" : position == 1 ? "Posts" : "Activity");
         }).attach();
         tabLayout.post(() -> viewPager.setCurrentItem(1, false));
 
         requestQueue = Volley.newRequestQueue(this);
-
-        // Get stored credentials
+        initializeActivityLaunchers();
         getStoredCredentials();
-
         initViews();
+        setupClickListeners();
 
-        // Fetch profile data after initialization
         if (accessToken != null && !accessToken.isEmpty()) {
             fetchProfileData();
         } else {
@@ -80,49 +82,142 @@ public class ProfilePage extends AppCompatActivity {
         }
     }
 
+    private void initializeActivityLaunchers() {
+        galleryLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Uri selectedImageUri = result.getData().getData();
+                        if (selectedImageUri != null) handleSelectedImage(selectedImageUri);
+                    }
+                }
+        );
+
+        cameraLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Bundle extras = result.getData().getExtras();
+                        Bitmap imageBitmap = (Bitmap) extras.get("data");
+                        if (imageBitmap != null) handleCapturedImage(imageBitmap);
+                    }
+                }
+        );
+    }
+
     private void getStoredCredentials() {
         SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         accessToken = prefs.getString("access_token", "");
         username = prefs.getString("username", "");
-
-        Log.d(TAG, "Retrieved access token: " + (accessToken.isEmpty() ? "empty" : "present"));
-        Log.d(TAG, "Retrieved username: " + username);
+        Log.d(TAG, "Access token retrieved: " + (accessToken != null && !accessToken.isEmpty() ? "Present" : "Empty"));
     }
 
     private void initViews() {
-        // Find views by their IDs from your XML
         profileImageView = findViewById(R.id.profile_image);
         nameTextView = findViewById(R.id.nameTextViewProfile);
         bioTextView = findViewById(R.id.usernameTextViewProfile);
         followersCountTextView = findViewById(R.id.followerCount);
+        changeProfilePicBtn = findViewById(R.id.changeProfilePicBtn);
     }
 
-    private void fetchProfileData() {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET,
+    private void setupClickListeners() {
+        changeProfilePicBtn.setOnClickListener(v -> showImagePickerDialog());
+    }
+
+    private void showImagePickerDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Change Profile Picture");
+        String[] options = {"Take Photo", "Choose from Gallery", "Remove Photo"};
+        builder.setItems(options, (dialog, which) -> {
+            if (which == 0) openCamera();
+            else if (which == 1) openGallery();
+            else removeProfilePicture();
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        builder.show();
+    }
+
+    private void openCamera() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CODE);
+        } else {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            cameraLauncher.launch(cameraIntent);
+        }
+    }
+
+    private void openGallery() {
+        String permission = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU ?
+                Manifest.permission.READ_MEDIA_IMAGES : Manifest.permission.READ_EXTERNAL_STORAGE;
+        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{permission}, PERMISSION_REQUEST_CODE);
+        } else {
+            Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            galleryIntent.setType("image/*");
+            galleryLauncher.launch(galleryIntent);
+        }
+    }
+
+    private void handleSelectedImage(Uri imageUri) {
+        try (InputStream inputStream = getContentResolver().openInputStream(imageUri)) {
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            if (bitmap != null) {
+                Bitmap resized = resizeBitmap(bitmap, 500, 500);
+                uploadProfilePicture(resized);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error loading image: " + e.getMessage());
+            showError("Error loading image");
+        }
+    }
+
+    private void handleCapturedImage(Bitmap bitmap) {
+        Bitmap resized = resizeBitmap(bitmap, 500, 500);
+        uploadProfilePicture(resized);
+    }
+
+    private Bitmap resizeBitmap(Bitmap original, int maxWidth, int maxHeight) {
+        int width = original.getWidth();
+        int height = original.getHeight();
+        if (width <= maxWidth && height <= maxHeight) return original;
+        float ratio = (float) width / height;
+        if (ratio > 1) {
+            width = maxWidth;
+            height = (int) (width / ratio);
+        } else {
+            height = maxHeight;
+            width = (int) (height * ratio);
+        }
+        return Bitmap.createScaledBitmap(original, width, height, true);
+    }
+
+    public void uploadProfilePicture(Bitmap bitmap) {
+        String base64Image = ImageUtil.bitmapToBase64(bitmap, Bitmap.CompressFormat.JPEG, 90);
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("profile_pic_base64", base64Image);
+        } catch (JSONException e) {
+            showError("Image data creation failed.");
+            return;
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.PATCH,
                 API_URL,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            parseAndDisplayData(response);
-                        } catch (JSONException e) {
-                            Log.e(TAG, "JSON parsing error: " + e.getMessage());
-                            showError("Error parsing data");
-                        }
-                    }
+                requestBody,
+                response -> {
+                    showSuccess("Profile picture updated.");
+                    fetchProfileData();
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(TAG, "API request error: " + error.getMessage());
-                        if (error.networkResponse != null && error.networkResponse.statusCode == 401) {
-                            showError("Authentication failed. Please login again.");
-                        } else {
-                            showError("Failed to load profile data");
-                        }
+                error -> {
+                    Log.e(TAG, "Upload failed: " + error.toString());
+                    if (error.networkResponse != null) {
+                        String body = new String(error.networkResponse.data);
+                        Log.e(TAG, "Error body: " + body);
                     }
+                    showError("Failed to update profile picture.");
                 }
         ) {
             @Override
@@ -134,81 +229,148 @@ public class ProfilePage extends AppCompatActivity {
             }
         };
 
-        // Add the request to the RequestQueue
-        requestQueue.add(jsonObjectRequest);
+        requestQueue.add(request);
     }
 
-    private void parseAndDisplayData(JSONObject response) throws JSONException {
-        // Extract data from JSON response
-        String name = response.optString("name", "Unknown User");
-        String profilePic = response.optString("profile_pic", "");
-        String followersCount = response.optString("followers_count", "0");
-        String bio = response.optString("bio", "No bio available");
-
-        // Update UI on main thread
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                updateUI(name, profilePic, followersCount, bio);
-            }
-        });
-    }
-
-    private void updateUI(String name, String profilePic, String followersCount, String bio) {
-        // Set name
-        nameTextView.setText(name);
-
-        // Set bio (replacing the "CSE student" text)
-        bioTextView.setText(bio);
-
-        // Set followers count
-        if (followersCountTextView instanceof TextView) {
-            ((TextView) followersCountTextView).setText(followersCount);
-        }
-
-        // Load profile image using Glide
-        if (!profilePic.isEmpty()) {
-            loadProfileImage(profilePic);
-        }
-
-        Log.d(TAG, "Profile data updated successfully");
-    }
-
-    private void loadProfileImage(String imageUrl) {
-        // Find the actual profile image view (the ShapeableImageView inside the constraint layout)
-        ShapeableImageView actualProfileImage = findViewById(R.id.constraintLayout)
-                .findViewById(R.id.imageView);
-
-        if (actualProfileImage == null) {
-            // If the above doesn't work, try to find it directly
-            // You might need to add an ID to the profile image in your XML
-            Log.w(TAG, "Profile image view not found");
+    private void removeProfilePicture() {
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("profile_pic_base64", "");
+        } catch (JSONException e) {
+            showError("Failed to prepare remove request.");
             return;
         }
 
-        Glide.with(this)
-                .load(imageUrl)
-                .transform(new CircleCrop())
-                .placeholder(R.drawable.avatar) // Your default avatar
-                .error(R.drawable.avatar) // Fallback to default avatar on error
-                .into(actualProfileImage);
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.PATCH,
+                API_URL,
+                jsonBody,
+                response -> {
+                    showSuccess("Profile picture removed.");
+                    fetchProfileData();
+                },
+                error -> {
+                    showError("Failed to remove profile picture.");
+                    Log.e(TAG, "Remove error: " + error.toString());
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accessToken);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        requestQueue.add(request);
+    }
+
+    private void fetchProfileData() {
+        Log.d(TAG, "Fetching profile data...");
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.GET,
+                API_URL,
+                null,
+                response -> {
+                    Log.d(TAG, "Profile response: " + response.toString());
+                    String name = response.optString("name", "Unknown");
+                    String profilePic = response.optString("profile_pic", "");
+                    String followers = response.optString("followers_count", "0");
+                    String bio = response.optString("bio", "");
+
+                    Log.d(TAG, "Profile pic Base64: " + profilePic);
+                    updateUI(name, profilePic, followers, bio);
+                },
+                error -> {
+                    Log.e(TAG, "Error fetching profile: " + error.toString());
+                    if (error.networkResponse != null) {
+                        Log.e(TAG, "Error status code: " + error.networkResponse.statusCode);
+                        String body = new String(error.networkResponse.data);
+                        Log.e(TAG, "Error response body: " + body);
+                    }
+                    showError("Failed to load profile data");
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accessToken);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
+
+        requestQueue.add(request);
+    }
+
+    private void updateUI(String name, String profilePic, String followers, String bio) {
+        Log.d(TAG, "Updating UI with profile pic: " + profilePic);
+
+        nameTextView.setText(name);
+        bioTextView.setText(bio);
+        followersCountTextView.setText(followers);
+
+        if (profilePic != null && !profilePic.isEmpty()) {
+            Log.d(TAG, "Loading profile image as Base64");
+            loadBase64Image(profilePic);
+        } else {
+            Log.d(TAG, "No profile picture, using default avatar");
+            profileImageView.setImageResource(R.drawable.avatar);
+        }
+    }
+
+    private void loadBase64Image(String base64Image) {
+        try {
+            // Remove data:image prefix if present
+            String cleanBase64 = base64Image;
+            if (base64Image.startsWith("data:image")) {
+                cleanBase64 = base64Image.substring(base64Image.indexOf(",") + 1);
+            }
+
+            byte[] decodedString = Base64.decode(cleanBase64, Base64.DEFAULT);
+            Bitmap decodedBitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+            if (decodedBitmap != null) {
+                Glide.with(this)
+                        .load(decodedBitmap)
+                        .transform(new CircleCrop())
+                        .placeholder(R.drawable.avatar)
+                        .error(R.drawable.avatar)
+                        .into(profileImageView);
+                Log.d(TAG, "Base64 image loaded successfully");
+            } else {
+                Log.e(TAG, "Failed to decode base64 image");
+                profileImageView.setImageResource(R.drawable.avatar);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Error loading base64 image: " + e.getMessage());
+            profileImageView.setImageResource(R.drawable.avatar);
+        }
     }
 
     private void showError(String message) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(ProfilePage.this, message, Toast.LENGTH_SHORT).show();
-            }
-        });
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    private void showSuccess(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE && grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            showSuccess("Permission granted. Please try again.");
+        } else {
+            showError("Permission denied.");
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Cancel all pending requests to avoid memory leaks
-        if (requestQueue != null) {
-            requestQueue.cancelAll(TAG);
-        }
+        if (requestQueue != null) requestQueue.cancelAll(TAG);
     }
 }
