@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -34,6 +36,7 @@ import java.util.Map;
 
 public class ChatBot extends AppCompatActivity {
     RecyclerView chatRecyclerView;
+    Button history;
     EditText messageEditText;
     ImageButton sendButton;
     ChatAdapter chatAdapter;
@@ -55,7 +58,7 @@ public class ChatBot extends AppCompatActivity {
         initViews();
         setupRecyclerView();
         setupClickListeners();
-        addBotMessage("Hello! I'm your sample chatbot. I'll echo back whatever you send me!");
+        addBotMessage("Hello! I'm your sample chatbot.");
     }
 
     private void setupClickListeners() {
@@ -74,6 +77,13 @@ public class ChatBot extends AppCompatActivity {
                     return true;
                 }
                 return false;
+            }
+        });
+        history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChatBot.this,ChatHistoryActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -302,5 +312,6 @@ public class ChatBot extends AppCompatActivity {
         chatRecyclerView=findViewById(R.id.chatRecyclerView);
         messageEditText=findViewById(R.id.messageEditText);
         sendButton=findViewById(R.id.sendButton);
+        history=findViewById(R.id.buttonViewHistory);
     }
 }

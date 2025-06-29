@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class UserProfile implements Serializable {
     private String name;
     private String profilePic;
-    private String followersCount;
+    private int followersCount;
     private String followingCount;
     private String isFollowing;
     private String address;
@@ -25,8 +25,8 @@ public class UserProfile implements Serializable {
     public String getProfilePic() { return profilePic != null ? profilePic : ""; }
     public void setProfilePic(String profilePic) { this.profilePic = profilePic; }
 
-    public String getFollowersCount() { return followersCount != null ? followersCount : "0"; }
-    public void setFollowersCount(String followersCount) { this.followersCount = followersCount; }
+    public int getFollowersCount() { return followersCount != 0 ? followersCount : 0; }
+    public void setFollowersCount(int followersCount) { this.followersCount = followersCount; }
 
     public String getFollowingCount() { return followingCount != null ? followingCount : "0"; }
     public void setFollowingCount(String followingCount) { this.followingCount = followingCount; }

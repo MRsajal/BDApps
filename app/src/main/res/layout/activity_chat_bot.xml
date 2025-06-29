@@ -4,58 +4,153 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D2F6B0"
+    android:background="#F8F9FA"
     tools:context=".ChatBot">
 
-    <androidx.appcompat.widget.Toolbar
+    <!-- Modern Toolbar with Material Design -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
-        app:title="Chatbot"
-        android:id="@+id/toolbar"
-        android:background="@color/top_nov"
-        app:titleTextColor="@color/white"/>
+        android:layout_height="wrap_content"
+        android:elevation="8dp">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:title="AI Assistant"
+            app:titleTextColor="@android:color/white"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonViewHistory"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="4dp"
+                app:icon="@drawable/ic_history_24"
+                android:layout_gravity="end"
+                app:iconTint="@color/white"
+                app:backgroundTint="@android:color/transparent"
+                app:rippleColor="@color/white"
+                android:contentDescription="History"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Chat Messages Container -->
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/chatRecyclerView"
-        android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/inputLayout"
-        android:padding="8dp"
-        android:background="#FAFAFA"
-        android:clipToPadding="false"
-        />
-    <LinearLayout
-        android:id="@+id/inputLayout"
+        android:layout_below="@+id/appBarLayout"
+        android:layout_above="@+id/inputContainer">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:paddingBottom="8dp"
+            android:clipToPadding="false"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="true"
+            tools:itemCount="5"/>
+<!--            tools:listitem="@layout/item_chat_message" />-->
+
+        <!-- Empty state (optional) -->
+        <LinearLayout
+            android:id="@+id/emptyStateLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_chat_bubble_outline"
+                android:alpha="0.3"
+                app:tint="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Start a conversation"
+                android:textSize="16sp"
+                android:textColor="@color/textSecondary"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <!-- Modern Input Container -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/inputContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="@android:color/white"
-        android:elevation="8dp">
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/messageEditText"
-            android:layout_weight="1"
-            android:layout_marginEnd="8dp"
-            android:hint="Type your message...."
-            android:textColor="@color/black"
-            android:padding="12dp"
-            android:maxLines="4"
-            android:inputType="textMultiLine|textCapSentences"
-            />
+        android:layout_margin="12dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@android:color/white">
 
-        <ImageButton
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:id="@+id/sendButton"
-            android:src="@drawable/baseline_send_24"
-            android:contentDescription="Send message"
-            android:background="@color/btn_color"
-            android:layout_gravity="bottom"/>
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:minHeight="56dp">
+
+            <!-- Message Input Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:boxBackgroundMode="none"
+                app:hintEnabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/messageEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Type your message..."
+                    android:textColor="@color/textPrimary"
+                    android:textColorHint="@color/textSecondary"
+                    android:textSize="16sp"
+                    android:background="@android:color/transparent"
+                    android:maxLines="4"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:scrollbars="vertical"
+                    android:padding="12dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Send Button -->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/sendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/baseline_send_24"
+                android:contentDescription="Send message"
+                app:fabSize="mini"
+                app:backgroundTint="@color/colorPrimary"
+                app:tint="@android:color/white"
+                app:elevation="0dp"
+                app:pressedTranslationZ="2dp" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </RelativeLayout>
