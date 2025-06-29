@@ -4,14 +4,11 @@
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
-<<<<<<< HEAD
     <style name="Theme.BDApps" parent="Base.Theme.BDApps" >
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:colorBackground">@color/background_color_dark</item>
     </style>
-=======
 
->>>>>>> 17646a0fa92da12b7b7cd92b2721df5315973431
     <style name="OvalShape" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
@@ -31,6 +28,12 @@
     <style name="CoverPhotoBackground">
         <item name="background">@drawable/coverpagenightsky</item>
         <item name="srcCompat">@drawable/coverpagenightsky</item>
+    </style>
+    <style name="institutionLogo">
+        <item name="srcCompat">@drawable/ic_education_white</item>
+    </style>
+    <style name="cameraLogo">
+        <item name="srcCompat">@drawable/ic_camera_white</item>
     </style>
 
 </resources>

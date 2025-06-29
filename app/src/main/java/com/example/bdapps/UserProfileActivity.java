@@ -39,7 +39,7 @@ public class UserProfileActivity extends AppCompatActivity {
     }
     private void initViews() {
         profileImageView = findViewById(R.id.profileImageView);
-        nameTextView = findViewById(R.id.nameTextView);
+        nameTextView = findViewById(R.id.nameTextViewProfile);
         usernameTextView = findViewById(R.id.usernameTextView);
         emailTextView = findViewById(R.id.emailTextView);
         followersTextView = findViewById(R.id.followersTextView);

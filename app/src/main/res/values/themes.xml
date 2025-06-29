@@ -30,6 +30,14 @@
         <item name="background">@drawable/blueskybackground</item>
         <item name="srcCompat">@drawable/blueskybackground</item>
     </style>
+    <style name="institutionLogo">
+        <item name="srcCompat">@drawable/ic_education</item>
+    </style>
+    <style name="cameraLogo">
+        <item name="srcCompat">@drawable/ic_camera_black</item>
+
+    </style>
+
 
 
 

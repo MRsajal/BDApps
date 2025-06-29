@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AboutFragmentProfileView">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="50dp"
+            android:orientation="vertical">
+
+            <!-- Main Edit Button -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <Button
+                    android:id="@+id/btnMainEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Edit Profile"
+                    android:drawableStart="@drawable/edit_icon"
+                    android:drawablePadding="8dp"
+                    style="@style/Widget.Material3.Button.UnelevatedButton"
+                    android:backgroundTint="@color/primary"/>
+
+
+            </LinearLayout>
+
+            <!-- Info Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical">
+
+                <!-- Section Header with Edit Option -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Info"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <ImageButton
+                        android:id="@+id/btnEditInfo"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:padding="3dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/edit_icon"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Edit Info"
+                        android:scaleType="centerInside"/>
+                    <ImageButton
+                        android:id="@+id/btnEditInfoSave"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_ok"
+                        android:visibility="gone"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Edit Info"
+                        android:scaleType="centerInside"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvInfoBio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:alpha=".8"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="@string/Info_about_Bio"/>
+                <!--<EditText
+                    android:id="@+id/tvInfoBioEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:alpha=".8"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="@string/Info_about_Bio"/>-->
+                <EditText
+                    android:id="@+id/tvInfoBioEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@drawable/edittext_background"
+                    android:padding="12dp"
+                    android:hint="Write about yourself"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    android:gravity="top|start"
+                    android:inputType="textMultiLine"
+                    android:scrollbars="vertical"
+                    android:maxLength="500"
+                    android:layout_marginBottom="20dp" />
+            </LinearLayout>
+
+            <!-- Education Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
+                android:orientation="vertical">
+
+                <!-- Section Header with Edit Option -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Education"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+                    <ImageButton
+                        android:id="@+id/btnAddEducation"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_add"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Add Education"
+                        android:scaleType="centerInside"/>
+                    <ImageButton
+                        android:id="@+id/btnEditEducationSave"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_ok"
+                        android:visibility="gone"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Edit Info"
+                        android:scaleType="centerInside"/>
+
+
+                </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/education_edit_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <!-- Education Entry 1 -->
+
+            </LinearLayout>
+
+            <!-- Skills Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
+                android:orientation="vertical">
+
+                <!-- Section Header with Edit Option -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Skills"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/btnEditSkills"-->
+<!--                        android:layout_width="32dp"-->
+<!--                        android:layout_height="32dp"-->
+<!--                        android:layout_marginEnd="10dp"-->
+<!--                        android:src="@drawable/edit_icon"-->
+<!--                        android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--                        android:contentDescription="Edit Skills"-->
+<!--                        android:scaleType="centerInside"/>-->
+
+                    <ImageButton
+                        android:id="@+id/btnAddSkill"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_add"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Add Skill"
+                        android:scaleType="centerInside"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/skillsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:orientation="vertical">
+
+                    <!-- Skill items with individual edit options -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/skills_background"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="40dp"
+                            android:text="C"
+                            android:textSize="16sp"/>
+
+                        <ImageButton
+                            android:padding="3dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/ic_close"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Remove skill"
+                            android:scaleType="centerInside"
+                            android:alpha="0.7"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/skills_background"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="40dp"
+                            android:text="C++"
+                            android:textSize="16sp"/>
+
+                        <ImageButton
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:padding="3dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/ic_close"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Remove skill"
+                            android:scaleType="centerInside"
+                            android:alpha="0.7"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/skills_background"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="40dp"
+                            android:text="Android Development"
+                            android:textSize="16sp"/>
+
+                        <ImageButton
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:padding="3dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/ic_close"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Remove skill"
+                            android:scaleType="centerInside"
+                            android:alpha="0.7"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/skills_background"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="40dp"
+                            android:text="Java"
+                            android:textSize="16sp"/>
+
+                        <ImageButton
+                            android:padding="3dp"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/ic_close"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Remove skill"
+                            android:scaleType="centerInside"
+                            android:alpha="0.7"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/skills_background"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="40dp"
+                            android:text="Python"
+                            android:textSize="16sp"/>
+
+                        <ImageButton
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:padding="3dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/ic_close"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Remove skill"
+                            android:scaleType="centerInside"
+                            android:alpha="0.7"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Interest Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="40dp"
+                android:orientation="vertical">
+
+                <!-- Section Header with Edit Option -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Interest"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+<!--                    <ImageButton-->
+<!--                        android:id="@+id/btnEditInterests"-->
+<!--                        android:layout_width="32dp"-->
+<!--                        android:layout_height="32dp"-->
+<!--                        android:padding="3dp"-->
+<!--                        android:layout_marginEnd="10dp"-->
+<!--                        android:src="@drawable/edit_icon"-->
+<!--                        android:background="?attr/selectableItemBackgroundBorderless"-->
+<!--                        android:contentDescription="Edit Interests"-->
+<!--                        android:scaleType="centerInside"/>-->
+
+                    <ImageButton
+                        android:id="@+id/btnAddInterest"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_add"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="Add Interest"
+                        android:scaleType="centerInside"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/interestsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:orientation="vertical">
+
+                    <!-- Interest items with individual edit options -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/skills_background"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="40dp"
+                            android:text="Cycling"
+                            android:textSize="16sp"/>
+
+                        <ImageButton
+                            android:padding="3dp"
+
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/ic_close"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Remove interest"
+                            android:scaleType="centerInside"
+                            android:alpha="0.7"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/skills_background"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="40dp"
+                            android:text="Gardening"
+                            android:textSize="16sp"/>
+
+                        <ImageButton
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:padding="3dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/ic_close"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Remove interest"
+                            android:scaleType="centerInside"
+                            android:alpha="0.7"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/skills_background"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="40dp"
+                            android:text="Music"
+                            android:textSize="16sp"/>
+
+                        <ImageButton
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:padding="3dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/ic_close"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Remove interest"
+                            android:scaleType="centerInside"
+                            android:alpha="0.7"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/skills_background"
+                            android:padding="5dp"
+                            android:gravity="center"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="40dp"
+                            android:text="Traveling"
+                            android:textSize="16sp"/>
+
+                        <ImageButton
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:padding="3dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/ic_close"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Remove interest"
+                            android:scaleType="centerInside"
+                            android:alpha="0.7"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

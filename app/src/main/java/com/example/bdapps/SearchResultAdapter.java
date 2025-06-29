@@ -48,7 +48,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         public ViewHolder(View itemView){
             super(itemView);
             profileImageView = itemView.findViewById(R.id.profileImageView);
-            nameTextView = itemView.findViewById(R.id.nameTextView);
+            nameTextView = itemView.findViewById(R.id.nameTextViewProfile);
             usernameTextView = itemView.findViewById(R.id.usernameTextView);
             followersTextView = itemView.findViewById(R.id.followersTextView);
         }

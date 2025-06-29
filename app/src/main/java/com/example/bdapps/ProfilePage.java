@@ -1,17 +1,15 @@
 package com.example.bdapps;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,6 +25,9 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ProfilePage extends AppCompatActivity {
     private static final String TAG = "ProfileView";
     private static final String API_URL = "https://dormitorybackend.duckdns.org/api/auth/profile";
@@ -39,7 +40,8 @@ public class ProfilePage extends AppCompatActivity {
     private TextView followersLabelTextView;
 
     private RequestQueue requestQueue;
-
+    private String accessToken;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,6 @@ public class ProfilePage extends AppCompatActivity {
         setContentView(R.layout.activity_profile_page);
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager2 viewPager = findViewById(R.id.view_pager);
-
-
 
         ProfileViewTabsAdapter adapter = new ProfileViewTabsAdapter(this);
         viewPager.setAdapter(adapter);
@@ -67,19 +67,34 @@ public class ProfilePage extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
+        // Get stored credentials
+        getStoredCredentials();
+
         initViews();
 
+        // Fetch profile data after initialization
+        if (accessToken != null && !accessToken.isEmpty()) {
+            fetchProfileData();
+        } else {
+            showError("No access token found. Please login again.");
+        }
+    }
+
+    private void getStoredCredentials() {
+        SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        accessToken = prefs.getString("access_token", "");
+        username = prefs.getString("username", "");
+
+        Log.d(TAG, "Retrieved access token: " + (accessToken.isEmpty() ? "empty" : "present"));
+        Log.d(TAG, "Retrieved username: " + username);
     }
 
     private void initViews() {
         // Find views by their IDs from your XML
-        profileImageView = findViewById(R.id.constraintLayout).findViewById(R.id.imageView); // Profile image inside constraint layout
-        nameTextView = findViewById(R.id.textView);
-        bioTextView = findViewById(R.id.textView2);
-
-        // For followers count, we'll use the existing TextView in linearLayout4
-        followersCountTextView = findViewById(R.id.followerCount);// First TextView showing "97"
-        //followersLabelTextView = findViewById(R.id.linearLayout4).getChildAt(1); // Second TextView showing "Followers"
+        profileImageView = findViewById(R.id.profile_image);
+        nameTextView = findViewById(R.id.nameTextViewProfile);
+        bioTextView = findViewById(R.id.usernameTextViewProfile);
+        followersCountTextView = findViewById(R.id.followerCount);
     }
 
     private void fetchProfileData() {
@@ -102,14 +117,27 @@ public class ProfilePage extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e(TAG, "API request error: " + error.getMessage());
-                        showError("Failed to load profile data");
+                        if (error.networkResponse != null && error.networkResponse.statusCode == 401) {
+                            showError("Authentication failed. Please login again.");
+                        } else {
+                            showError("Failed to load profile data");
+                        }
                     }
                 }
-        );
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + accessToken);
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
 
         // Add the request to the RequestQueue
         requestQueue.add(jsonObjectRequest);
     }
+
     private void parseAndDisplayData(JSONObject response) throws JSONException {
         // Extract data from JSON response
         String name = response.optString("name", "Unknown User");

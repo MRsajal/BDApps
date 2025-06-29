@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Profile selected", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(MainActivity.this, ProfileView.class);
+                Intent intent=new Intent(MainActivity.this, ProfilePage.class);
                 intent.putExtra("current_username",currentUsername);
                 startActivity(intent);
 //                drawerLayout.closeDrawer(GravityCompat.START);
