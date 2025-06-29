@@ -2,7 +2,7 @@
     android:shape="oval">
 
     <!-- Transparent fill -->
-    <solid android:color="@android:color/transparent" />
+    <solid android:color="@android:color/black" />
 
     <!-- Padding around the shape -->
     <stroke

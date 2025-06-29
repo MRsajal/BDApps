@@ -29,11 +29,20 @@
         <item name="background">@drawable/coverpagenightsky</item>
         <item name="srcCompat">@drawable/coverpagenightsky</item>
     </style>
+    <style name="ProfilePhotoBackground">
+        <item name="android:background">@drawable/circle_mask_black</item>
+    </style>
+    <style name="ProfileChangeButtonBackground">
+        <item name="android:background">@drawable/circular_background_dark_button</item>
+    </style>
     <style name="institutionLogo">
         <item name="srcCompat">@drawable/ic_education_white</item>
     </style>
     <style name="cameraLogo">
         <item name="srcCompat">@drawable/ic_camera_white</item>
+    </style>
+    <style name="icon_edit">
+        <item name="srcCompat">@drawable/edit_icon_white</item>
     </style>
 
 </resources>

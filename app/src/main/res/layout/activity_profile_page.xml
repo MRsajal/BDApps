@@ -64,7 +64,7 @@
                         android:id="@+id/constraintLayout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/circle_mask_black"
+                        style="@style/ProfilePhotoBackground"
                         android:padding="1dp"
                         app:layout_constraintBottom_toTopOf="@+id/linearLayout8"
                         app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -88,18 +88,31 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:shapeAppearanceOverlay="@style/OvalShape" />
 
-                        <ImageButton
-                            android:id="@+id/changeProfilePicBtn"
-                            style="@style/cameraLogo"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:alpha="0.7"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:scaleType="centerInside"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/ProfileChangeButtonBackground"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent" />
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.98"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.95">
+
+                            <ImageButton
+                                android:id="@+id/changeProfilePicBtn"
+                                style="@style/cameraLogo"
+                                android:layout_margin="5dp"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:alpha="0.7"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:scaleType="centerInside"
+                                />
+
+                        </LinearLayout>
+
+
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -167,34 +180,42 @@
                         app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
                         app:layout_constraintStart_toStartOf="@+id/constraintLayout">
 
-                        <LinearLayout
-                            android:id="@+id/linearLayout3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:layout_marginBottom="10dp"
-                            android:orientation="vertical"
-                            app:layout_constraintVertical_bias="0.77">
-
-
-                            <TextView
-                                android:id="@+id/nameTextViewProfile"
+                            <LinearLayout
+                                android:id="@+id/linearLayout3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:alpha="0.8"
-                                android:text="Shadikur Rahman Shadiq"
-                                android:textSize="22sp"
-                                android:textStyle="bold" />
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:orientation="vertical"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
 
-                            <TextView
-                                android:id="@+id/usernameTextViewProfile"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:alpha="0.6"
-                                android:paddingEnd="20dp"
-                                android:text="CSE student "
-                                android:textSize="18sp" />
-                        </LinearLayout>
+
+                                <TextView
+                                    android:id="@+id/nameTextViewProfile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.8"
+                                    android:text="Shadikur Rahman Shadiq"
+                                    android:textSize="22sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/usernameTextViewProfile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.6"
+                                    android:paddingEnd="20dp"
+                                    android:text="CSE student "
+                                    android:textSize="18sp" />
+                            </LinearLayout>
+
+
+
+
 
                         <LinearLayout
                             android:id="@+id/linearLayout5"
