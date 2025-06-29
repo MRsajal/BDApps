@@ -8,4 +8,27 @@
     <color name="tab_color">#645491</color>
     <color name="grey">#808080</color>
     <color name="primary">#645491</color>
+    <color name="background_light">#F5F5F5</color>
+    <color name="text_primary">#212121</color>
+    <color name="icon_tint">#757575</color>
+    <color name="divider">#E0E0E0</color>
+    <color name="error_color">#F44336</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="backgroundColor">#F8F9FA</color>       <!-- Light gray background -->
+    <color name="cardBackground">#FFFFFF</color>
+    <color name="textPrimary">#212121</color>           <!-- Dark gray for main text -->
+    <color name="textSecondary">#757575</color>         <!-- Medium gray for hints/secondary text -->
+
+    <!-- Additional UI Colors -->
+         <!-- Pure black -->
+
+    <!-- Chat-specific Colors -->
+    <color name="userMessageBackground">#E3F2FD</color> <!-- Light blue for user messages -->
+    <color name="botMessageBackground">#F5F5F5</color>  <!-- Light gray for bot messages -->
+    <color name="dividerColor">#E0E0E0</color>          <!-- Light gray for dividers -->
+
+    <!-- Legacy colors (if you want to keep them) -->
+
 </resources>

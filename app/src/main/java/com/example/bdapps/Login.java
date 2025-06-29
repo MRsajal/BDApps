@@ -120,6 +120,7 @@ public class Login extends AppCompatActivity {
                         SharedPreferences prefs = getSharedPreferences("MyPrefs", MODE_PRIVATE);
                         prefs.edit().putString("access_token", accessToken).apply();
                         prefs.edit().putString("username",username).apply();
+                        //prefs.edit().putString("user_email",username).apply();
 
                         Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
 

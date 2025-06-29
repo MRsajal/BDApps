@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -31,7 +32,7 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
     @Override
     public ChatHistoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_chat_history,parent,false);
+                .inflate(R.layout.item_chat_history,parent,false);
         return new ViewHolder(view);
     }
 
@@ -48,9 +49,29 @@ public class ChatHistoryAdapter extends RecyclerView.Adapter<ChatHistoryAdapter.
 
         // Set click listener to open detailed chat view
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, ChatHistoryActivity.class);
+            Intent intent = new Intent(context, ChatDetailActivity.class);
             intent.putExtra("conversation_id", conversation.getId());
             intent.putExtra("conversation_title", conversation.getTitle());
+
+            // Pass the entire conversation object if needed
+            // You can also pass individual messages
+            if (conversation.getMessages() != null && !conversation.getMessages().isEmpty()) {
+                // Convert messages to ArrayList for easier passing
+                ArrayList<String> messageContents = new ArrayList<>();
+                ArrayList<String> messageRoles = new ArrayList<>();
+                ArrayList<String> messageTimestamps = new ArrayList<>();
+
+                for (PreviousMessage message : conversation.getMessages()) {
+                    messageContents.add(message.getContent());
+                    messageRoles.add(message.getRole());
+                    messageTimestamps.add(message.getTimestamp());
+                }
+
+                intent.putStringArrayListExtra("message_contents", messageContents);
+                intent.putStringArrayListExtra("message_roles", messageRoles);
+                intent.putStringArrayListExtra("message_timestamps", messageTimestamps);
+            }
+
             context.startActivity(intent);
         });
     }

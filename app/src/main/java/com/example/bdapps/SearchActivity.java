@@ -128,7 +128,7 @@ public class SearchActivity extends AppCompatActivity {
             UserProfile userProfile = new UserProfile();
             userProfile.setName(profile.optString("name", ""));
             userProfile.setProfilePic(profile.optString("profile_pic", ""));
-            userProfile.setFollowersCount(profile.optString("followers_count", "0"));
+            userProfile.setFollowersCount(profile.optInt("followers_count", 0));
             userProfile.setFollowingCount(profile.optString("following_count", "0"));
             userProfile.setIsFollowing(profile.optString("is_following", "false"));
             userProfile.setAddress(profile.optString("address", ""));
