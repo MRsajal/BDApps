@@ -8,6 +8,7 @@
     </style>
 
     <style name="Theme.BDApps" parent="Base.Theme.BDApps" />
+
     <style name="OvalShape" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>

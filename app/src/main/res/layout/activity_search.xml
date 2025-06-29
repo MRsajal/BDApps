@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:background="@color/background_color"
+    tools:context=".SearchActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/search_background"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"
+        android:elevation="2dp">
+
+        <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Search users by username..."
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:background="@null"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:textColorHint="#888888" />
+
+        <Button
+            android:id="@+id/searchActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:background="@drawable/search_button_background"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp" />
+
+    </LinearLayout>
+
+    <!-- Content Area -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/background_color"
+        android:layout_weight="1">
+
+        <!-- Search Results RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchResultsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible" />
+
+        <!-- Progress Bar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <!-- No Results Text -->
+        <TextView
+            android:id="@+id/noResultsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="No users found"
+            android:textSize="18sp"
+            android:textColor="#666666"
+            android:visibility="gone"
+            android:drawableTop="@drawable/ic_search_empty"
+            android:drawablePadding="16dp"
+            android:gravity="center" />
+
+    </FrameLayout>
+
+</LinearLayout>
