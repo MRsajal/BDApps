@@ -3,22 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
-
-    <TextView
-        android:id="@+id/tvProfileTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="My Posts"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:padding="16dp" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPosts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tvProfileTitle"
         android:layout_marginTop="8dp" />
 
 </RelativeLayout>

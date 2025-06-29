@@ -1,4 +1,4 @@
-package com.example.bdapps;
+package com.example.bdapps.ProfileComponent;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,8 +24,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.bdapps.AboutBottomSheet;
 import com.example.bdapps.ProfileComponent.Education.Education;
 import com.example.bdapps.ProfileComponent.Education.EducationAdapter;
+import com.example.bdapps.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
