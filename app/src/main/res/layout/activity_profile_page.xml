@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="@color/background_white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfileView">
@@ -128,16 +129,17 @@
                         app:layout_constraintTop_toTopOf="@+id/constraintLayout">
 
                         <TextView
+                            android:id="@+id/followingCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="15 h"
+                            android:text="0"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="last week"
+                            android:text="Following"
                             android:textSize="16sp" />
 
                     </LinearLayout>
@@ -230,7 +232,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="5dp"
                                 android:layout_weight="1"
+                                android:textColor="@color/background_white"
                                 android:text="Follow"
+                                android:backgroundTint="@color/primary"
                                 android:textSize="16sp" />
 
                             <Button
@@ -240,6 +244,7 @@
                                 android:layout_marginStart="5dp"
                                 android:layout_weight="1"
                                 android:text="Message"
+                                android:textColor="@color/primary"
                                 android:alpha=".9"
                                 android:textSize="16sp" />
                         </LinearLayout>
@@ -261,7 +266,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingBottom="5dp"
-                            android:background="?android:colorBackground"/>
+                            app:tabTextColor="@color/primary"
+                            android:background="@color/background_white"
+                            />
 
                         <!--<androidx.viewpager2.widget.ViewPager2
                             android:id="@+id/view_pager"
@@ -282,6 +289,7 @@
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
+        android:background="@color/background_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>

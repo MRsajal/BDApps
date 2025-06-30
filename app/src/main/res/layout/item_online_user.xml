@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- User Avatar -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivUserAvatar"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/ic_user_placeholder"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#4CAF50"
+            android:layout_gravity="center_vertical" />
+
+        <!-- User Information -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_gravity="center_vertical">
+
+            <!-- Username and Online Status -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvUsername"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Username"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#333333" />
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@drawable/online_indicator"
+                    android:layout_marginStart="8dp" />
+
+            </LinearLayout>
+
+            <!-- Domain -->
+            <TextView
+                android:id="@+id/tvDomain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Domain"
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:textColor="#666666"
+                android:layout_marginTop="2dp" />
+
+            <!-- Goal -->
+            <TextView
+                android:id="@+id/tvGoal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Goal"
+                android:textSize="16sp"
+                android:textColor="#666666"
+                android:layout_marginTop="2dp" />
+
+            <!-- Study Time Today -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Today: "
+                    android:textSize="12sp"
+                    android:textColor="#888888" />
+
+                <TextView
+                    android:id="@+id/tvStudyTimeToday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0h 0m"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#2196F3" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Timer Section -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Studying for"
+                android:textSize="10sp"
+                android:textColor="#888888" />
+
+            <TextView
+                android:id="@+id/tvOnlineTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="00:00"
+                android:textColor="#4CAF50"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

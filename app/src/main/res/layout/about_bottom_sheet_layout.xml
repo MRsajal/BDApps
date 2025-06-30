@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/background_white"
     tools:context=".ProfileComponent.AboutFragmentProfileView">
 
     <androidx.core.widget.NestedScrollView
@@ -35,7 +36,8 @@
                     android:drawableStart="@drawable/edit_icon"
                     android:drawablePadding="8dp"
                     style="@style/Widget.Material3.Button.UnelevatedButton"
-                    android:backgroundTint="@color/primary"/>
+                    android:backgroundTint="@color/primary"
+                    />
 
 
             </LinearLayout>

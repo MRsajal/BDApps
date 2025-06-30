@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.bdapps.OnlineUsersActivity;
 import com.example.bdapps.ProfileComponent.Timer.TimerActivity;
 import com.example.bdapps.ProfileComponent.Timer.TimerManager;
 import com.example.bdapps.R;
@@ -21,6 +22,8 @@ public class ActivityFragmentProfileView extends Fragment implements TimerManage
     private TextView tvStatusActivity;
     private TextView tvCurrentGoalActivity;
     private TimerManager timerManager;
+    private ImageButton btnTimerExpand;
+    private ImageButton btnTotalActiveUsers;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,7 +35,8 @@ public class ActivityFragmentProfileView extends Fragment implements TimerManage
         tvTimerActivity = view.findViewById(R.id.tvTimerActivity);
         tvStatusActivity = view.findViewById(R.id.tvStatusActivity);
         tvCurrentGoalActivity = view.findViewById(R.id.tvCurrentGoalActivity);
-        ImageButton btnTimerExpand = view.findViewById(R.id.btntTimerExpand);
+        btnTimerExpand = view.findViewById(R.id.btntTimerExpand);
+        btnTotalActiveUsers = view.findViewById(R.id.btntRightArrow);
 
         // Initialize timer manager with context
         timerManager = new TimerManager(getContext(), this);
@@ -46,6 +50,13 @@ public class ActivityFragmentProfileView extends Fragment implements TimerManage
             // Navigate to Timer activity
             Intent intent = new Intent(getActivity(), TimerActivity.class);
             startActivity(intent);
+        });
+        btnTotalActiveUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), OnlineUsersActivity.class);
+                startActivity(intent);
+            }
         });
 
         // Check timer status when fragment is created

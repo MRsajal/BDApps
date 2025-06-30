@@ -50,9 +50,8 @@ public class ProfilePage extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 100;
 
     private ShapeableImageView profileImageView;
-    private TextView nameTextView, bioTextView, followersCountTextView;
+    private TextView nameTextView, bioTextView, followersCountTextView,followingCountTextView;
     private ImageButton changeProfilePicBtn;
-
     private RequestQueue requestQueue;
     private String accessToken, username;
 
@@ -119,6 +118,7 @@ public class ProfilePage extends AppCompatActivity {
         nameTextView = findViewById(R.id.nameTextViewProfile);
         bioTextView = findViewById(R.id.usernameTextViewProfile);
         followersCountTextView = findViewById(R.id.followerCount);
+        followingCountTextView = findViewById(R.id.followingCount);
         changeProfilePicBtn = findViewById(R.id.changeProfilePicBtn);
     }
 
@@ -279,10 +279,11 @@ public class ProfilePage extends AppCompatActivity {
                     String name = response.optString("name", "Unknown");
                     String profilePic = response.optString("profile_pic", "");
                     String followers = response.optString("followers_count", "0");
+                    String following = response.optString("following_count", "0");
                     String bio = response.optString("bio", "");
 
                     Log.d(TAG, "Profile pic Base64: " + profilePic);
-                    updateUI(name, profilePic, followers, bio);
+                    updateUI(name, profilePic, followers,following, bio);
                 },
                 error -> {
                     Log.e(TAG, "Error fetching profile: " + error.toString());
@@ -306,12 +307,13 @@ public class ProfilePage extends AppCompatActivity {
         requestQueue.add(request);
     }
 
-    private void updateUI(String name, String profilePic, String followers, String bio) {
+    private void updateUI(String name, String profilePic, String followers, String following,String bio) {
         Log.d(TAG, "Updating UI with profile pic: " + profilePic);
 
         nameTextView.setText(name);
         bioTextView.setText(bio);
         followersCountTextView.setText(followers);
+        followingCountTextView.setText(following);
 
         if (profilePic != null && !profilePic.isEmpty()) {
             Log.d(TAG, "Loading profile image as Base64");

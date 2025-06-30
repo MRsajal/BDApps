@@ -21,6 +21,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/primary"
             android:layout_marginHorizontal="10dp"
             android:text="Edit" />
 

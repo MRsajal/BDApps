@@ -7,6 +7,7 @@ import com.example.bdapps.SearchPost.SearchPost;
 import com.example.bdapps.SearchPost.PostDetailActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         currentUsername= getIntent().getStringExtra("current_username");
         accessToken = getIntent().getStringExtra("access_token");
         initView();

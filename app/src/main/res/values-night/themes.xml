@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.BDApps" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+<!--    <style name="Base.Theme.BDApps" parent="Theme.Material3.DayNight.NoActionBar">
+        &lt;!&ndash; Customize your dark theme here. &ndash;&gt;
+        &lt;!&ndash; <item name="colorPrimary">@color/my_dark_primary</item> &ndash;&gt;
         <item name="background">@color/background_color_dark</item>
 
 
@@ -46,6 +46,85 @@
     </style>
     <style name="icon_edit">
         <item name="srcCompat">@drawable/edit_icon_white</item>
+    </style>-->
+
+    To ensure the app uses the same styles for both light and dark modes, you can modify the `themes.xml` and `themes-night.xml` files to have identical styles. Specifically, you can copy the styles from `themes.xml` into `themes-night.xml`.
+
+    Here’s how your `themes-night.xml` should look:
+
+    ```xml
+        <!-- Base application theme. -->
+        <style name="Base.Theme.BDApps" parent="Theme.Material3.DayNight.NoActionBar">
+            <!-- Customize your light theme here. -->
+            <item name="background">@color/background_color_light</item>
+            <item name="android:textColor">#212121</item>
+
+        </style>
+
+        <style name="Theme.BDApps" parent="Base.Theme.BDApps">
+            <item name="android:colorBackground">@color/background_color_light</item>
+            <item name="android:textColor">@android:color/black</item>
+            <item name="hintTextColor">#212121</item>
+            <item name="android:editTextColor">#212121</item>
+
+        </style>
+
+        <style name="OvalShape" parent="">
+            <item name="cornerFamily">rounded</item>
+            <item name="cornerSize">50%</item>
+        </style>
+
+        <style name="BottomRoundedShape" parent="">
+            <item name="cornerFamily">rounded</item>
+            <item name="cornerSizeTopLeft">0dp</item>
+            <item name="cornerSizeTopRight">0dp</item>
+            <item name="cornerSizeBottomLeft">20dp</item>
+            <item name="cornerSizeBottomRight">20dp</item>
+        </style>
+
+        <style name="OverlayViewStyle">
+            <item name="android:layout_width">0dp</item>
+            <item name="android:layout_height">0dp</item>
+            <item name="android:background">@drawable/gradient_background_white</item>
+        </style>
+
+        <style name="CoverPhotoBackground">
+            <item name="background">@drawable/blueskybackground</item>
+            <item name="srcCompat">@drawable/blueskybackground</item>
+        </style>
+
+        <style name="ProfilePhotoBackground">
+            <item name="android:background">@drawable/circle_mask</item>
+        </style>
+
+        <style name="ProfileChangeButtonBackground">
+            <item name="android:background">@drawable/circular_background_button</item>
+        </style>
+
+        <style name="institutionLogo">
+            <item name="srcCompat">@drawable/ic_education</item>
+        </style>
+
+        <style name="cameraLogo">
+            <item name="srcCompat">@drawable/ic_camera_black</item>
+        </style>
+
+        <style name="icon_edit">
+            <item name="srcCompat">@drawable/edit_icon</item>
+        </style>
+
+    <style name="CustomOutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">#212121</item>
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+        <item name="android:textColorHint">#212121</item>
+        <item name="hintTextColor">#212121</item>
     </style>
+    <style name="Widget.YourApp.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">?attr/colorPrimary</item>
+        <item name="hintTextColor">?attr/colorPrimary</item>
+        <item name="android:textColorHint">?attr/colorOnSurface</item>
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+    </style>
+
 
 </resources>
