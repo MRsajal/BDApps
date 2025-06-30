@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -262,11 +264,14 @@ public class UserProfileActivity extends AppCompatActivity {
         boolean isFollowing = "true".equals(profile.getIsFollowing());
         followButton.setText(isFollowing ? "Unfollow" : "Follow");
 
-        // Load profile image using Glide (you'll need to add Glide dependency)
+        // Load profile image using Glide
         if (!profile.getProfilePic().isEmpty()) {
-            // Glide.with(this).load(profile.getProfilePic()).into(profileImageView);
-            // For now, just set a placeholder
-            profileImageView.setImageResource(R.drawable.ic_person_placeholder);
+            Glide.with(this)
+                    .load(profile.getProfilePic())
+                    .placeholder(R.drawable.ic_person_placeholder) // Shows while loading
+                    .error(R.drawable.ic_person_placeholder) // Shows if loading fails
+                    .circleCrop() // Optional: makes image circular
+                    .into(profileImageView);
         } else {
             profileImageView.setImageResource(R.drawable.ic_person_placeholder);
         }
