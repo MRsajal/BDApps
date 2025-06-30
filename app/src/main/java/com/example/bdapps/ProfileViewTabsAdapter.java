@@ -5,6 +5,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.bdapps.ProfileComponent.AboutFragmentProfileView;
+import com.example.bdapps.ProfileComponent.ActivityFragmentProfileView;
+import com.example.bdapps.ProfileComponent.PostsFragmentProfileView;
+
 public class ProfileViewTabsAdapter extends FragmentStateAdapter {
     public ProfileViewTabsAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);

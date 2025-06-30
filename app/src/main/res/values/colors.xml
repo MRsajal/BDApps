@@ -32,5 +32,26 @@
     <color name="botMessageBackground">#F5F5F5</color>  <!-- Light gray for bot messages -->
     <color name="dividerColor">#E0E0E0</color>          <!-- Light gray for dividers -->
 
+    <!-- Button Colors -->
+    <color name="start_button_color">#4CAF50</color>
+    <color name="stop_button_color">#F44336</color>
+
+    <color name="primary_color">#6200EA</color>
+    <color name="primary_variant">#3700B3</color>
+    <color name="secondary_color">#03DAC6</color>
+
+    <!-- Background Colors -->
+    <color name="card_background">#FFFFFF</color>
+    <color name="timer_background">#FAFAFA</color>
+
+    <!-- Status Colors -->
+    <color name="success_color">#4CAF50</color>
+    <color name="warning_color">#FF9800</color>
+
+    <!-- Text Colors -->
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="timer_text">#1A1A1A</color>
+
 
 </resources>

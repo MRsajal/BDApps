@@ -119,7 +119,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     Toast.makeText(UserProfileActivity.this, "Failed to follow user", Toast.LENGTH_SHORT).show();
                 });
             }
-
+            
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 runOnUiThread(() -> {

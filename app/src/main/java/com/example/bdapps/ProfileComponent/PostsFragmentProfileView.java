@@ -1,4 +1,4 @@
-package com.example.bdapps;
+package com.example.bdapps.ProfileComponent;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -21,6 +21,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.bdapps.Post;
+import com.example.bdapps.PostAdapter;
+import com.example.bdapps.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +32,6 @@ import org.json.JSONObject;
 import java.util.List;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PostsFragmentProfileView extends Fragment {
     private String etUsername;

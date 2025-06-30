@@ -3,6 +3,9 @@
     <style name="Base.Theme.BDApps" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="background">@color/background_color_dark</item>
+
+
     </style>
     <style name="Theme.BDApps" parent="Base.Theme.BDApps" >
         <item name="android:textColor">#FFFFFF</item>
