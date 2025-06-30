@@ -7,62 +7,113 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.ViewHolder> {
-    private List<User> users;
+    private List<User> userList;
     private OnUserClickListener listener;
-    public interface OnUserClickListener{
+
+    public interface OnUserClickListener {
         void onUserClick(User user);
     }
-    public SearchResultAdapter(List<User> users,OnUserClickListener listener){
-        this.users=users;
-        this.listener=listener;
+
+    public SearchResultAdapter(List<User> userList, OnUserClickListener listener) {
+        this.userList = userList;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public SearchResultAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_search_result,parent,false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_search_result, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchResultAdapter.ViewHolder holder, int position) {
-        User user=users.get(position);
-        holder.bind(user,listener);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        User user = userList.get(position);
+        holder.bind(user);
     }
 
     @Override
     public int getItemCount() {
-        return users.size();
+        return userList.size();
     }
-    static class ViewHolder extends RecyclerView.ViewHolder{
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView profileImageView;
         private TextView nameTextView;
         private TextView usernameTextView;
-        private TextView followersTextView;
-        public ViewHolder(View itemView){
+        private TextView emailTextView;
+        private CardView cardView;
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            profileImageView = itemView.findViewById(R.id.profileImageView);
-            nameTextView = itemView.findViewById(R.id.nameTextViewProfile);
-            usernameTextView = itemView.findViewById(R.id.usernameTextView);
-            followersTextView = itemView.findViewById(R.id.followersTextView);
+
+            // Initialize views with null checks
+            profileImageView = itemView.findViewById(R.id.iv_profile_image);
+            nameTextView = itemView.findViewById(R.id.tv_name);
+            usernameTextView = itemView.findViewById(R.id.tv_username);
+            emailTextView = itemView.findViewById(R.id.tv_email);
+            cardView = itemView.findViewById(R.id.card_view);
+
+            // Add click listener
+            itemView.setOnClickListener(v -> {
+                if (listener != null && getAdapterPosition() != RecyclerView.NO_POSITION) {
+                    listener.onUserClick(userList.get(getAdapterPosition()));
+                }
+            });
         }
-        public void bind(User user, OnUserClickListener listener) {
-            UserProfile profile = user.getProfile();
 
-            nameTextView.setText(profile.getName().isEmpty() ? "No name" : profile.getName());
-            usernameTextView.setText("@" + user.getUsername());
-            followersTextView.setText(profile.getFollowersCount() + " followers");
+        public void bind(User user) {
+            // Null checks for all operations
+            if (user == null) return;
 
-            // Set profile image placeholder
-            profileImageView.setImageResource(R.drawable.ic_person_placeholder);
+            // Set username
+            if (usernameTextView != null) {
+                usernameTextView.setText("@" + user.getUsername());
+            }
 
-            itemView.setOnClickListener(v -> listener.onUserClick(user));
+            // Set email
+            if (emailTextView != null) {
+                emailTextView.setText(user.getEmail());
+            }
+
+            // Set name from profile
+            if (nameTextView != null) {
+                String displayName = "Unknown User";
+                if (user.getProfile() != null && !user.getProfile().getName().isEmpty()) {
+                    displayName = user.getProfile().getName();
+                } else if (user.getUsername() != null && !user.getUsername().isEmpty()) {
+                    displayName = user.getUsername();
+                }
+                nameTextView.setText(displayName);
+            }
+
+            // Load profile image
+            if (profileImageView != null) {
+                String profilePicUrl = "";
+                if (user.getProfile() != null) {
+                    profilePicUrl = user.getProfile().getProfilePic();
+                }
+
+                if (profilePicUrl != null && !profilePicUrl.isEmpty()) {
+                    Glide.with(itemView.getContext())
+                            .load(profilePicUrl)
+                            .placeholder(R.drawable.ic_person_placeholder)
+                            .error(R.drawable.ic_person_placeholder)
+                            .circleCrop()
+                            .into(profileImageView);
+                } else {
+                    profileImageView.setImageResource(R.drawable.ic_person_placeholder);
+                }
+            }
         }
     }
 }

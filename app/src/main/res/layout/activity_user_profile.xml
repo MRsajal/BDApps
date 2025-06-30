@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="24dp"
+                android:background="@color/background_color2"
                 android:gravity="center_horizontal">
 
                 <!-- Profile Image -->
@@ -39,12 +40,12 @@
                 <TextView
                     android:id="@+id/nameTextViewProfile"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_marginBottom="4dp"
                     android:text="User Name"
-                    android:textSize="24sp"
                     android:textColor="#212529"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="4dp" />
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
                 <!-- Username -->
                 <TextView
@@ -53,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:text="@username"
                     android:textSize="16sp"
-                    android:textColor="#6C757D"
+                    android:textColor="#212529"
                     android:layout_marginBottom="8dp" />
 
                 <!-- Follow/Following Stats -->
@@ -116,6 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:background="@color/background_color2"
                 android:padding="20dp">
 
                 <TextView
@@ -215,6 +217,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:background="@color/background_color2"
                 android:padding="20dp">
 
                 <TextView

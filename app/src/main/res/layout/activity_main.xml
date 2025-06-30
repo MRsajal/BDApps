@@ -147,19 +147,42 @@
         </androidx.core.widget.NestedScrollView>
 
         <!-- Floating Action Button for Create Post -->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add_post"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="24dp"
-            android:src="@drawable/add_comment"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Bottom FAB (Add Post) -->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_add_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="24dp"
+                android:src="@drawable/add_comment"
+                app:backgroundTint="@color/btn_color"
+                app:tint="@color/white"
+                app:elevation="6dp"
+                app:hoveredFocusedTranslationZ="12dp"
+                app:pressedTranslationZ="12dp"
+                android:contentDescription="Create Post" />
+
+            <!-- Top FAB (Search Post) above the first FAB -->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_search_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="100dp"
+            android:src="@drawable/baseline_search_24"
             app:backgroundTint="@color/btn_color"
             app:tint="@color/white"
             app:elevation="6dp"
             app:hoveredFocusedTranslationZ="12dp"
             app:pressedTranslationZ="12dp"
-            android:contentDescription="Create Post" />
+            android:contentDescription="Search Post" />
+        </FrameLayout>
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -275,7 +298,34 @@
                         android:layout_marginEnd="24dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp" />
+                    <LinearLayout
+                        android:id="@+id/menu_reco"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:orientation="horizontal"
+                        android:paddingStart="24dp"
+                        android:paddingEnd="24dp"
+                        android:gravity="center_vertical"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true">
 
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/baseline_group_24"
+                            app:tint="@color/icon_tint" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Recommendation"
+                            android:textSize="16sp"
+                            android:textColor="@color/text_primary"
+                            android:fontFamily="sans-serif"
+                            android:layout_marginStart="32dp" />
+
+                    </LinearLayout>
                     <!-- Create Group Menu Item -->
 <!--                    <LinearLayout-->
 <!--                        android:id="@+id/menu_post"-->

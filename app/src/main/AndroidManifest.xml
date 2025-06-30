@@ -29,7 +29,18 @@
         android:theme="@style/Theme.BDApps"
         tools:targetApi="31">
         <activity
-            android:name=".ProfileComponent.Timer.TimerActivity"
+
+            android:name=".ProfileComponent.Timer.TimerActivity"/>
+
+      <activity
+            android:name=".Recommendation.Recommendation"
+            android:exported="false" />
+        <activity
+            android:name=".SearchPost.SearchActivityPost"
+            android:exported="false" />
+        <activity
+            android:name=".SearchPost.PostDetailActivity"
+
             android:exported="false" />
         <activity
             android:name=".ChatDetailActivity"

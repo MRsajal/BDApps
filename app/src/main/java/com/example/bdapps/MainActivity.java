@@ -1,5 +1,11 @@
 package com.example.bdapps;
 
+import com.example.bdapps.Recommendation.Recommendation;
+import com.example.bdapps.SearchPost.ApiService;
+import com.example.bdapps.SearchPost.SearchActivityPost;
+import com.example.bdapps.SearchPost.SearchPost;
+import com.example.bdapps.SearchPost.PostDetailActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -50,6 +56,8 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity {
     private TextView userNameTextView;
@@ -58,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     MaterialButton btnMenu;
     MaterialButton btnChat, btnSearch;
-    FloatingActionButton btnAddPost;
-    LinearLayout menuProfile, menuPost, menuLogout, menuGroups;
+    FloatingActionButton btnAddPost,btnSearchPost;
+    LinearLayout menuProfile, menuPost, menuLogout, menuReco;
 
     RecyclerView recyclerView;
     PostAdapter postAdapter;
@@ -146,12 +154,12 @@ public class MainActivity extends AppCompatActivity {
         btnAddPost=findViewById(R.id.btn_add_post);
         recyclerView=findViewById(R.id.recycler_view);
         btnSearch=findViewById(R.id.btn_search);
+        btnSearchPost=findViewById(R.id.btn_search_post);
 
 
 
         menuProfile=findViewById(R.id.menu_profile);
-//        menuPost=findViewById(R.id.menu_post);
-//        menuGroups=findViewById(R.id.menu_group);
+menuReco=findViewById(R.id.menu_reco);
         menuLogout=findViewById(R.id.menu_logout);
 
         String accessToken = getIntent().getStringExtra("access_token");
@@ -348,11 +356,25 @@ public class MainActivity extends AppCompatActivity {
         menuProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Profile selected", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Profile selected", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(MainActivity.this, ProfilePage.class);
                 intent.putExtra("current_username",currentUsername);
                 startActivity(intent);
 //                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
+        btnSearchPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SearchActivityPost.class);
+                startActivity(intent);
+            }
+        });
+        menuReco.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, Recommendation.class);
+                startActivity(intent);
             }
         });
 
@@ -363,6 +385,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
     private void logoutUser(){
         SharedPreferences prefs=getSharedPreferences("MyPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor=prefs.edit();
